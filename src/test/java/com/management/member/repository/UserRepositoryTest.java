@@ -20,10 +20,10 @@ class UserRepositoryTest {
     String username = "testname";
 
     User user = new User();
-    user.setName(username);
+    user.setUserId(username);
 
     User savedUser = userRepository.save(user);
 
-    assertThat(savedUser.getName()).isEqualTo(username);
+    assertThat(savedUser.getUserName()).isEqualTo(username);
   }
 }

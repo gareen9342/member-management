@@ -1,10 +1,11 @@
 package com.management.member.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 
-@Entity @Data
+@Entity @Data @ToString
 @Table(name="SYSTEM_USER")
 public class User {
 
@@ -19,7 +20,7 @@ public class User {
   private String password;
 
   @Column(name="user_nm")
-  private String name;
+  private String userName;
 
   @Column(name="user_auth")
   private String role;
