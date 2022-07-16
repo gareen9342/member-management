@@ -38,7 +38,7 @@ public class UserController {
     user.setUserId(userDto.getUserid());
     user.setPassword(encodedPassword);
     user.setUserName(userDto.getUsername());
-    user.setRole(UserRole.ADMIN.getRolename());
+    user.setRole(UserRole.DEFAULT.getRolename());
 
     userService.saveUser(user);
 

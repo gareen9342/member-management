@@ -1,8 +1,21 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
 <body>
-<div>
-  hello world
+<div class="contents" layout:fragment="content-body">
+  <h2>메인페이지</h2>
+  <!-- 일반 유저는 인사메세지를 보여준다.  -->
+  <div sec:authorize="hasRole('ROLE_USER')">
+    <p><span th:text="${#authentication.principal.name}"></span>님, 환영합니다.</p>
+  </div>
+
+  <!-- 운영자의 경우 회원 목록을 보여준다.-->
+  <div sec:authorize="hasRole('ROLE_ADMIN')">
+    운영자
+    TODO: 회원 목록을 보여준다.
+  </div>
 </div>
 </body>
 </html>

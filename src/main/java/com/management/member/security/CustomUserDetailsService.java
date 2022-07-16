@@ -29,7 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     log.info("[LOAD USER BY USERNAME] :: exist user found = {} rolename = {}", existUserByUserId, rolename);
 
-    return new UserDetail(existUserByUserId.getUserId(), existUserByUserId.getPassword(), rolename);
+    return new UserDetail(existUserByUserId.getUserId(), existUserByUserId.getUserName(), existUserByUserId.getPassword(), rolename);
 
   }
 }

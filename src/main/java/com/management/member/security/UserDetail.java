@@ -14,7 +14,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserDetail implements UserDetails {
 
-  private final String username;
+  private final String userid;
+  private final String name;
   private final String password;
   private final String role;
 
@@ -32,8 +33,10 @@ public class UserDetail implements UserDetails {
 
   @Override
   public String getUsername() {
-    return username;
+    return userid;
   }
+
+  public String getName(){return name;}
 
   @Override
   public boolean isAccountNonExpired() {
