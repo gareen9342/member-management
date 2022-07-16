@@ -13,8 +13,8 @@
 
   <!-- 운영자의 경우 회원 목록을 보여준다.-->
   <div sec:authorize="hasRole('ROLE_ADMIN')">
-    운영자
-    TODO: 회원 목록을 보여준다.
+    <p>안녕하세요 운영자님.</p>
+    <p>회원목록 바로가기 링크 : <a th:href="@{/user/list}">회원목록</a></p>
   </div>
 </div>
 </body>
