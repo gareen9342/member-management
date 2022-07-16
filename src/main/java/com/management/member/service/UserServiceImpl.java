@@ -5,6 +5,8 @@ import com.management.member.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
@@ -17,8 +19,8 @@ public class UserServiceImpl implements UserService{
   }
 
   @Override
-  public User findUserByUserId(String userId) {
-    return null;
+  public User getUserByUserId(String userId) {
+    return userRepository.findByUserId(userId);
   }
 
   @Override
@@ -34,5 +36,10 @@ public class UserServiceImpl implements UserService{
   @Override
   public Long deleteUser(Long userId) {
     return null;
+  }
+
+  @Override
+  public List<User> getUsers() {
+    return userRepository.findAll();
   }
 }
