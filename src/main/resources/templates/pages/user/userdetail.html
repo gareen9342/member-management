@@ -14,11 +14,59 @@
       <h5 class="card-title" th:text="${user.userId}">user id </h5>
       <h6 class="card-subtitle mb-2 text-muted" th:text="${user.userName}">username</h6>
       <p class="card-text" th:text="${user.role}">userrole</p>
-      <button type="button" class="btn btn-primary">수정</button>
-      <button type="button" class="btn btn-danger">삭제</button>
+      <button type="button" class="btn btn-primary" onclick="showModPopup()">수정</button>
+      <button type="button"class="btn btn-danger" th:onclick="requestDelete(${user.userId})">삭제</button>
+    </div>
+  </div>
+
+  <!-- modal
+-->
+  <div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">회원 정보 수정하기 </h5>
+        </div>
+        <div class="modal-body">
+          <form th:action="@{/user/update}" method="post">
+            <input type="hidden" th:value="${user.id}" name="idx">
+            <input type="hidden" th:value="${user.userId}" name="userId">
+            <div class="form-group">
+              <label for="username">유저 이름</label>
+              <input type="text" class="form-control" id="username" name="username" th:value="${user.userName}" placeholder="유저 이름을 입력하세요">
+              <small id="emailHelp" class="form-text text-muted">이름</small>
+            </div>
+            <button type="submit" class="btn btn-primary">제출</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModPopup()">Close</button>
+        </div>
+      </div>
     </div>
   </div>
 
 </div>
+
+
+<th:block layout:fragment="content-script">
+  <script type="text/javascript" th:inline="javascript">
+      function showModPopup(){
+          $(".modal").show();
+      }
+
+      function closeModPopup(){
+          $(".modal").hide();
+      }
+
+      function requestDelete(userId){
+          // if(confirm("정말로 삭제를 진행하시겠습니까?")){
+          //
+          // }
+      }
+  </script>
+</th:block>
 </body>
 </html>
+
+

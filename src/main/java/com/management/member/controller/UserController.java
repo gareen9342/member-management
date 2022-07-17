@@ -4,6 +4,7 @@ import com.management.member.constants.UserRole;
 import com.management.member.dto.UserDto;
 import com.management.member.dto.UserListRequest;
 import com.management.member.dto.UserListResponse;
+import com.management.member.dto.UserUpdateRequest;
 import com.management.member.entity.User;
 import com.management.member.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -77,5 +78,12 @@ public class UserController {
     User userById = userService.getUserDetail(useridx);
     model.addAttribute("user", userById);
     return "pages/user/userdetail";
+  }
+
+  @PostMapping("/user/update")
+  public String userUpdate(UserUpdateRequest userUpdateRequest){
+    User user = userService.updateUser(userUpdateRequest);
+    log.info("[USER UPDATE] :: updated user = {}", user);
+    return "redirect:/user/list";
   }
 }

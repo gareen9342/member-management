@@ -2,10 +2,11 @@ package com.management.member.entity;
 
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
-@Entity @Data @ToString
+@Entity @Data @ToString @DynamicUpdate
 @Table(name="SYSTEM_USER")
 public class User {
 

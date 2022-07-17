@@ -1,6 +1,7 @@
 package com.management.member.service;
 
 import com.management.member.dto.UserListResponse;
+import com.management.member.dto.UserUpdateRequest;
 import com.management.member.entity.User;
 import com.management.member.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -50,8 +51,10 @@ public class UserServiceImpl implements UserService{
   }
 
   @Override
-  public User updateUser(User user) {
-    return null;
+  public User updateUser(UserUpdateRequest userUpdateRequest) {
+    User user = userRepository.findByUserId(userUpdateRequest.getUserId());
+    user.setUserName(userUpdateRequest.getUsername());
+    return userRepository.save(user);
   }
 
   @Override
