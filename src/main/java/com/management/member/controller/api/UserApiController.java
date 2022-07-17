@@ -1,9 +1,6 @@
 package com.management.member.controller.api;
 
-import com.management.member.dto.CreateUserRequest;
-import com.management.member.dto.ApiSuccessResponse;
-import com.management.member.dto.UserListRequest;
-import com.management.member.dto.UserListResponse;
+import com.management.member.dto.*;
 import com.management.member.entity.User;
 import com.management.member.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -62,6 +59,20 @@ public class UserApiController {
     User savedUser = userService.saveUser(user);
 
     if(savedUser == null){ //TODO:exception?
+      return new ApiSuccessResponse(ApiSuccessResponse.FAILURE);
+    }
+
+    return new ApiSuccessResponse();
+  }
+
+  @PatchMapping("")
+  public ApiSuccessResponse updateUser(@Valid @RequestBody UserUpdateRequest userUpdateRequest){
+
+    log.info("update user request  {}", userUpdateRequest);
+
+    User user = userService.updateUser(userUpdateRequest);
+
+    if(user == null){
       return new ApiSuccessResponse(ApiSuccessResponse.FAILURE);
     }
 
