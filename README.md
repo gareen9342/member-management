@@ -5,7 +5,8 @@
 
 ## 요구사항 
 
-- API 명세서 작성
+- API 명세서 작성 
+  - Swagger : [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 - GET, POST, PUT, DELETE 그 외의 요청 메서드로 요청할 때에는 `405 Method Not Allowed` 를 반환한다. 
 - 모든 API에서는 결과를 포함하여 응답하여야 하며, 로직 수행 중 오류가 발생한 경우에는 `500 Intenal Server Error` 반환한다.  
 

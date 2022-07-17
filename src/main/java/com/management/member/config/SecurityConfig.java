@@ -37,6 +37,7 @@ public class SecurityConfig {
       .authorizeRequests()
       .antMatchers("/css/**", "/js/**").permitAll()
       .antMatchers("/api/**/*").permitAll() // api controller 단은 permit all
+      .antMatchers("/v2/api-docs","/swagger-resources","/swagger-resources/**","/configuration/ui","/configuration/security","/swagger-ui.html","/webjars/**","/v3/api-docs/**", "/swagger-ui/**").permitAll() // api controller 단은 permit all
       .antMatchers("/login", "/register", "/logout").permitAll()
       .antMatchers("/user/list/*").hasAuthority(UserRole.ADMIN.getRolename())
       .antMatchers("/user/detail/*").hasAuthority(UserRole.ADMIN.getRolename())
