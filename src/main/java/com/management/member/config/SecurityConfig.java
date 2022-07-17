@@ -1,5 +1,6 @@
 package com.management.member.config;
 
+import com.management.member.constants.UserRole;
 import com.management.member.security.CustomAuthenticationProvider;
 import com.management.member.security.CustomUserDetailsService;
 import com.management.member.service.UserService;
@@ -31,6 +32,8 @@ public class SecurityConfig {
     http
       .authorizeRequests()
       .antMatchers("/login", "/register", "/logout").permitAll()
+      .antMatchers("/user/list/*").hasAuthority(UserRole.ADMIN.getRolename())
+      .antMatchers("/user/detail/*").hasAuthority(UserRole.ADMIN.getRolename())
       .anyRequest().authenticated();
 
     http
