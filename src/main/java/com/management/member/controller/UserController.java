@@ -1,10 +1,7 @@
 package com.management.member.controller;
 
 import com.management.member.constants.UserRole;
-import com.management.member.dto.UserDto;
-import com.management.member.dto.UserListRequest;
-import com.management.member.dto.UserListResponse;
-import com.management.member.dto.UserUpdateRequest;
+import com.management.member.dto.*;
 import com.management.member.entity.User;
 import com.management.member.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -12,9 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
@@ -33,8 +28,7 @@ public class UserController {
   public String register(UserDto userDto){
 
     // TODO: parameter 로깅은 필터로 구현하기
-    log.info("user dto = {}", userDto);
-
+    // TODO: 비즈니스 로직은 서비스 궇ㄴ
     String encodedPassword = bCryptPasswordEncoder.encode(userDto.getPassword());
 
     User user = new User();
@@ -80,10 +74,18 @@ public class UserController {
     return "pages/user/userdetail";
   }
 
-  @PostMapping("/user/update")
+  @PostMapping("/user/update") // TODO: url end point 수정할 것인지
   public String userUpdate(UserUpdateRequest userUpdateRequest){
     User user = userService.updateUser(userUpdateRequest);
     log.info("[USER UPDATE] :: updated user = {}", user);
     return "redirect:/user/list";
+  }
+
+  @ResponseBody
+  @DeleteMapping("/user/delete")
+  public UserDeleteResponse userDelete(@RequestParam(value = "userId") String userId){
+    Boolean deleteResult = userService.deleteUser(userId);
+    log.info("[USER DELETE] :: delete result = {}", deleteResult);
+    return new UserDeleteResponse(deleteResult);
   }
 }

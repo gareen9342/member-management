@@ -5,13 +5,12 @@ import com.management.member.dto.UserUpdateRequest;
 import com.management.member.entity.User;
 import com.management.member.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
@@ -58,8 +57,15 @@ public class UserServiceImpl implements UserService{
   }
 
   @Override
-  public Long deleteUser(Long userId) {
-    return null;
+  public Boolean deleteUser(String userId) {
+    try{
+      User byUserId = userRepository.findByUserId(userId);
+      userRepository.delete(byUserId);
+    }catch(Exception e){ //TODO: 올바르지 않은 유저의 Exception 종류 걸러 응답하기
+      log.error(e.getMessage());
+      return false;
+    }
+    return true;
   }
 
   @Override

@@ -18,7 +18,7 @@ public interface UserService {
 
   User updateUser(UserUpdateRequest userUpdateRequest);
 
-  Long deleteUser(Long userId);
+  Boolean deleteUser(String userId);
 
   UserListResponse getUsers(Integer pagenum);
 

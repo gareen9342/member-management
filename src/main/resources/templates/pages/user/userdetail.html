@@ -15,7 +15,9 @@
       <h6 class="card-subtitle mb-2 text-muted" th:text="${user.userName}">username</h6>
       <p class="card-text" th:text="${user.role}">userrole</p>
       <button type="button" class="btn btn-primary" onclick="showModPopup()">수정</button>
-      <button type="button"class="btn btn-danger" th:onclick="requestDelete(${user.userId})">삭제</button>
+      <button type="button"class="btn btn-danger"
+              th:userId="${user.userId}"
+              th:onclick="requestDelete(this.getAttribute('userId'))">삭제</button>
     </div>
   </div>
 
@@ -60,9 +62,20 @@
       }
 
       function requestDelete(userId){
-          // if(confirm("정말로 삭제를 진행하시겠습니까?")){
-          //
-          // }
+          if(confirm("정말로 삭제를 진행하시겠습니까?")){
+              $.ajax({
+                  type:"delete",
+                  url: `/user/delete?userId=${userId}`,
+                  contentType : "application/json",
+                  dataType    : "json",
+                  success : function(data, status, xhr) {
+                      if(data.isSuccess){
+                          location.href="/user/list"
+                      }
+                  },
+
+              });
+          }
       }
   </script>
 </th:block>
