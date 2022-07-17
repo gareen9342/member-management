@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+<body>
+<div class="contents" layout:fragment="content-body">
+    <h2>회원 목록 페이지</h2>
+    <div th:if="${users != null}">
+        <div th:text="${users}"></div>
+    </div>
+</div>
+</body>
+</html>
