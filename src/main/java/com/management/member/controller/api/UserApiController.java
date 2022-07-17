@@ -78,4 +78,10 @@ public class UserApiController {
 
     return new ApiSuccessResponse();
   }
+
+  @DeleteMapping("")
+  public ApiSuccessResponse deleteUser(@Valid @RequestParam(value = "userId") String userId){
+    Boolean deleteResult = userService.deleteUser(userId);
+    return new ApiSuccessResponse();
+  }
 }
