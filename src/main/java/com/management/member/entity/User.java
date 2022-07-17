@@ -12,7 +12,7 @@ public class User {
 
   @Id @GeneratedValue
   @Column(name="user_idx")
-  private Long id;
+  private Long id; //FIXME
 
   @Column(name="user_id")
   private String userId;
