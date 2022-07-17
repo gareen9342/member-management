@@ -1,6 +1,7 @@
 package com.management.member.config;
 
 import com.management.member.constants.UserRole;
+import com.management.member.security.AuthenticationFailureHandler;
 import com.management.member.security.CustomAuthenticationProvider;
 import com.management.member.security.CustomUserDetailsService;
 import com.management.member.service.UserService;
@@ -23,6 +24,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
   private final UserService userService;
+  private final AuthenticationFailureHandler authenticationFailureHandler;
 
   @Bean
   public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
@@ -43,6 +45,7 @@ public class SecurityConfig {
       .passwordParameter("password")
       .loginProcessingUrl("/login")
       .defaultSuccessUrl("/")
+      .failureHandler(authenticationFailureHandler)
       .and()
       .logout()
       .logoutUrl("/logout")
