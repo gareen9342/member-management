@@ -50,7 +50,7 @@ public class UserController {
 
     // TODO: 아무 파라미터도 없는 경우
     // FIXME: DAO가 해야할 일을 서비스가 하고 있는 듯
-    if(userListRequest.getUserid() != null){
+    if(userListRequest.getUserid() != null && !userListRequest.getUserid().isEmpty()){
       userListResponse = userService.getUsersByUserId(userListRequest.getUserid(), userListRequest.getPagenum());
     }
     if(userListRequest.getUsername() != null){// TODO

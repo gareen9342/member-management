@@ -34,7 +34,7 @@ public class UserApiController {
     UserListResponse userListResponse = new UserListResponse();
     log.info("userListResponse = {}",userListRequest);
 
-    if(userListRequest.getUserid() != null){ // 유저 아이디 검색 (like)
+    if(userListRequest.getUserid() != null && !userListRequest.getUserid().isEmpty()){ // 유저 아이디 검색 (like)
       /*검색시 유저아이디 우선적*/
       userListResponse = userService.getUsersByUserId(userListRequest.getUserid(), userListRequest.getPagenum());
     }else if(userListRequest.getUsername() != null){// 유저 이름 검색 (like)
