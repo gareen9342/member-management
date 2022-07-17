@@ -1,5 +1,6 @@
 package com.management.member.service;
 
+import com.management.member.dto.UserListResponse;
 import com.management.member.entity.User;
 
 import java.util.List;
@@ -10,11 +11,13 @@ public interface UserService {
 
   User getUserByUserId(String userId);
 
-  User findUserByUsername(String username);
+  UserListResponse getUsersByUserId(String userId, Integer pagenum);
+
+  UserListResponse getUsersByUsername(String username, Integer pagenum);
 
   User updateUser(User user);
 
   Long deleteUser(Long userId);
 
-  List<User> getUsers();
+  UserListResponse getUsers(Integer pagenum);
 }
