@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -71,6 +72,11 @@ public class UserServiceImpl implements UserService{
     userListResponse.setIsLastPage(userpage.isLast());
 
     return userListResponse;
+  }
+
+  @Override
+  public User getUserDetail(Long userIdx) {
+    return userRepository.findById(userIdx).get(); // TODO: null 처리
   }
 
 }

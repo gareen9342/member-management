@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+<body>
+<div class="contents" layout:fragment="content-body">
+  <h2>회원 상세 정보</h2>
+  <div class="card">
+    <div th:if="${user == null}" class="card-body">
+      회원이 존재하지 않습니다.
+    </div>
+    <div th:if="${user != null}" class="card-body">
+      <h5 class="card-title" th:text="${user.userId}">user id </h5>
+      <h6 class="card-subtitle mb-2 text-muted" th:text="${user.userName}">username</h6>
+      <p class="card-text" th:text="${user.role}">userrole</p>
+      <button type="button" class="btn btn-primary">수정</button>
+      <button type="button" class="btn btn-danger">삭제</button>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @Controller
@@ -71,4 +72,10 @@ public class UserController {
 
   }
 
+  @GetMapping("/user/detail")
+  public String userDetail(@RequestParam(value="useridx") Long useridx, Model model){
+    User userById = userService.getUserDetail(useridx);
+    model.addAttribute("user", userById);
+    return "pages/user/userdetail";
+  }
 }

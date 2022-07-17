@@ -20,4 +20,6 @@ public interface UserService {
   Long deleteUser(Long userId);
 
   UserListResponse getUsers(Integer pagenum);
+
+  User getUserDetail(Long userIdx);
 }

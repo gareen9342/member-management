@@ -5,9 +5,25 @@
       layout:decorate="~{layouts/default}">
 <body>
 <div class="contents" layout:fragment="content-body">
-    <h2>회원 목록 페이지</h2>
-    <div th:if="${users != null}">
-        <div th:text="${users}"></div>
+    <h2>회원 목록</h2>
+    <table class="table"  th:if="${users != null}">
+        <thead>
+        <tr>
+            <th><span>아이디</span></th>
+            <th><span>이름</span></th>
+            <th><span>권한</span></th>
+        </tr>
+        </thead>
+        <tdody>
+            <tr th:each="user:${users}">
+                <td><span th:text="${user.userId}"></span></td>
+                <td><a th:href="@{/user/detail(useridx=${user.id})}"><span th:text="${user.userName}"></span></a></td>
+                <td><span th:text="${user.role}"></span></td>
+            </tr>
+        </tdody>
+    </table>
+    <div th:if="${users == null || users.size() == 0}">
+        회원 목록이 존재하지 않습니다.
     </div>
 </div>
 </body>
