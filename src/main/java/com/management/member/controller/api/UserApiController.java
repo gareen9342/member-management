@@ -58,7 +58,7 @@ public class UserApiController {
 
     User savedUser = userService.saveUser(user);
 
-    if(savedUser == null){ //TODO:exception?
+    if(savedUser == null){ //TODO:exception
       return new ApiSuccessResponse(ApiSuccessResponse.FAILURE);
     }
 
@@ -72,7 +72,7 @@ public class UserApiController {
 
     User user = userService.updateUser(userUpdateRequest);
 
-    if(user == null){
+    if(user == null){//TODO:exception
       return new ApiSuccessResponse(ApiSuccessResponse.FAILURE);
     }
 
@@ -82,6 +82,11 @@ public class UserApiController {
   @DeleteMapping("")
   public ApiSuccessResponse deleteUser(@Valid @RequestParam(value = "userId") String userId){
     Boolean deleteResult = userService.deleteUser(userId);
+
+    if(!deleteResult){
+      return new ApiSuccessResponse(ApiSuccessResponse.FAILURE);
+    }
+
     return new ApiSuccessResponse();
   }
 }
