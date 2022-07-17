@@ -27,8 +27,7 @@ public class UserController {
   @PostMapping("/register")
   public String register(UserDto userDto){
 
-    // TODO: parameter 로깅은 필터로 구현하기
-    // TODO: 비즈니스 로직은 서비스 궇ㄴ
+    // TODO: 비즈니스 로직은 서비스로
     String encodedPassword = bCryptPasswordEncoder.encode(userDto.getPassword());
 
     User user = new User();
@@ -50,6 +49,7 @@ public class UserController {
     UserListResponse userListResponse = new UserListResponse();
 
     // TODO: 아무 파라미터도 없는 경우
+    // FIXME: DAO가 해야할 일을 서비스가 하고 있는 듯
     if(userListRequest.getUserid() != null){
       userListResponse = userService.getUsersByUserId(userListRequest.getUserid(), userListRequest.getPagenum());
     }

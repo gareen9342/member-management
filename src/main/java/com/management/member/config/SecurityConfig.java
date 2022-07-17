@@ -36,6 +36,7 @@ public class SecurityConfig {
     http
       .authorizeRequests()
       .antMatchers("/css/**", "/js/**").permitAll()
+      .antMatchers("/api/**/*").permitAll() // api controller 단은 permit all
       .antMatchers("/login", "/register", "/logout").permitAll()
       .antMatchers("/user/list/*").hasAuthority(UserRole.ADMIN.getRolename())
       .antMatchers("/user/detail/*").hasAuthority(UserRole.ADMIN.getRolename())

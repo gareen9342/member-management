@@ -46,7 +46,20 @@ public class UserServiceImpl implements UserService{
 
   @Override
   public UserListResponse getUsersByUsername(String username, Integer pagenum) {
-    return null ;
+
+    PageRequest pageRequest = PageRequest.of(pagenum, 10);
+
+    Page<User> userPage = userRepository.findAllByUserNameContaining(username, pageRequest);
+
+    UserListResponse userListResponse = new UserListResponse();
+
+    userListResponse.setUserlist(userPage.getContent());
+    userListResponse.setCurPage(pagenum);
+    userListResponse.setIsFirstPage(userPage.isFirst());
+    userListResponse.setIsLastPage(userPage.isLast());
+    userListResponse.setTotalCount(userPage.getTotalPages());
+
+    return userListResponse;
   }
 
   @Override
