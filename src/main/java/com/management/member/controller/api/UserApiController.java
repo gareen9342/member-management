@@ -1,13 +1,16 @@
 package com.management.member.controller.api;
 
+import com.management.member.dto.CreateUserRequest;
+import com.management.member.dto.ApiSuccessResponse;
 import com.management.member.dto.UserListRequest;
 import com.management.member.dto.UserListResponse;
+import com.management.member.entity.User;
 import com.management.member.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Slf4j
 @RestController()
@@ -44,5 +47,24 @@ public class UserApiController {
     }
 
     return userListResponse;
+  }
+
+  @PostMapping("")
+  public ApiSuccessResponse createUser(@Valid @RequestBody CreateUserRequest createUserRequest){
+
+    log.info("[CREATE USER] :: createUserRequest = {}", createUserRequest);
+
+    User user = new User();
+    user.setUserId(createUserRequest.getUserId());
+    user.setUserName(createUserRequest.getUsername());
+    user.setRole(createUserRequest.getUserRole());
+
+    User savedUser = userService.saveUser(user);
+
+    if(savedUser == null){ //TODO:exception?
+      return new ApiSuccessResponse(ApiSuccessResponse.FAILURE);
+    }
+
+    return new ApiSuccessResponse();
   }
 }

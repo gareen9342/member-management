@@ -18,7 +18,7 @@ public class User {
   private String userId;
 
   @Column(name="user_pw")
-  private String password;
+  private String password = "";
 
   @Column(name="user_nm")
   private String userName;
