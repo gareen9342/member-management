@@ -24,13 +24,13 @@ public class UserHistory {
   private ActionType actionType;
 
   @ManyToOne(targetEntity = User.class, fetch=FetchType.EAGER)
-  @JoinColumn(name="reg_user_idx")
+  @JoinColumn(name="reg_user_idx", nullable = false)
   private User user;
 
   @Column(name="reg_ip")
   private String regIp;
 
   @CreationTimestamp
-  @Column(name="reg_dt")
+  @Column(name="reg_dt", nullable = false)
   private LocalDateTime regDt;
 }

@@ -4,8 +4,6 @@ import com.management.member.dto.UserListResponse;
 import com.management.member.dto.UserUpdateRequest;
 import com.management.member.entity.User;
 
-import java.util.List;
-
 public interface UserService {
 
   User saveUser(User user);

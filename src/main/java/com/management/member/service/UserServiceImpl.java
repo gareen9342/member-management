@@ -1,5 +1,6 @@
 package com.management.member.service;
 
+import com.management.member.constants.ActionType;
 import com.management.member.dto.UserListResponse;
 import com.management.member.dto.UserUpdateRequest;
 import com.management.member.entity.User;
@@ -9,17 +10,36 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 
 @Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
 
   private final UserRepository userRepository;
+  private final UserHistoryService userHistoryService;
+  private final EntityManager em;
 
   @Override
   public User saveUser(User user) {
-    return userRepository.save(user);
+
+    User savedUser = userRepository.save(user);
+
+    HttpServletRequest request = getRequest();
+    userHistoryService.saveUserHistory(savedUser, ActionType.C, request);
+
+    return savedUser;
+  }
+
+  private HttpServletRequest getRequest() {
+    return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
   }
 
   @Override
@@ -64,16 +84,28 @@ public class UserServiceImpl implements UserService{
 
   @Override
   public User updateUser(UserUpdateRequest userUpdateRequest) {
+
     User user = userRepository.findByUserId(userUpdateRequest.getUserId());
     user.setUserName(userUpdateRequest.getUsername());
-    return userRepository.save(user);
+
+    User updated = userRepository.save(user);
+
+    HttpServletRequest request = getRequest();
+    userHistoryService.saveUserHistory(updated, ActionType.U, request);
+
+    return updated;
   }
 
   @Override
   public Boolean deleteUser(String userId) {
     try{
       User byUserId = userRepository.findByUserId(userId);
+      
+      HttpServletRequest request = getRequest();
+      userHistoryService.saveUserHistory(byUserId, ActionType.D, request);
+
       userRepository.delete(byUserId);
+
     }catch(Exception e){ //TODO: 올바르지 않은 유저의 Exception 종류 걸러 응답하기
       log.error(e.getMessage());
       return false;
