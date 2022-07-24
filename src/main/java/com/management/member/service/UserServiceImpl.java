@@ -99,11 +99,8 @@ public class UserServiceImpl implements UserService{
   @Override
   public Boolean deleteUser(String userId) {
     try{
-      User byUserId = userRepository.findByUserId(userId);
-      
-      HttpServletRequest request = getRequest();
-      userHistoryService.saveUserHistory(byUserId, ActionType.D, request);
 
+      User byUserId = userRepository.findByUserId(userId);
       userRepository.delete(byUserId);
 
     }catch(Exception e){ //TODO: 올바르지 않은 유저의 Exception 종류 걸러 응답하기
