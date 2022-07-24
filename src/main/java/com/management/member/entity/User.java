@@ -5,6 +5,8 @@ import lombok.ToString;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity @Data @ToString @DynamicUpdate
 @Table(name="SYSTEM_USER")
@@ -25,5 +27,8 @@ public class User {
 
   @Column(name="user_auth")
   private String role;
+
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  private List<UserHistory> userHistoryList = new ArrayList<>();
 
 }
