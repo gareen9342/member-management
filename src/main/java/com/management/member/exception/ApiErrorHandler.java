@@ -7,15 +7,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @RestControllerAdvice(value = "com.management.member.controller.api")
 @Slf4j
 public class ApiErrorHandler {
 
+  @ExceptionHandler(value = {MethodArgumentNotValidException.class})
   public ResponseEntity<ErrorResponse> handleFieldError(MethodArgumentNotValidException exception){
 
     List<String> errorFields = new ArrayList<String>();
@@ -33,4 +36,13 @@ public class ApiErrorHandler {
     return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
   }
 
+  @ExceptionHandler(value = {RuntimeException.class})
+  public ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException exception){
+
+    HashMap<String, String> responseMap = new HashMap<>();
+
+    log.error(exception.getMessage());
+
+    return new ResponseEntity(responseMap, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
 }
