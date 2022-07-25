@@ -1,18 +1,20 @@
 package com.management.member.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor
-public class ApiSuccessResponse {
+@AllArgsConstructor
+public class ApiResponse {
 
-  // TODO: 별도의 상수만들기
   public static final String SUCCESS = "000000";
   public static final String FAILURE = "999999";
 
   private String resultCode = SUCCESS;
+  private String resultMsg = "server responsed";
 
-  public ApiSuccessResponse(String resultCode) {
+  public ApiResponse(String resultCode) {
     this.resultCode = resultCode;
   }
 }

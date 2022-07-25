@@ -47,7 +47,7 @@ public class UserApiController {
   }
 
   @PostMapping("")
-  public ApiSuccessResponse createUser(@Valid @RequestBody CreateUserRequest createUserRequest){
+  public ApiResponse createUser(@Valid @RequestBody CreateUserRequest createUserRequest){
 
     log.info("[CREATE USER] :: createUserRequest = {}", createUserRequest);
 
@@ -59,34 +59,34 @@ public class UserApiController {
     User savedUser = userService.saveUser(user);
 
     if(savedUser == null){ //TODO:exception
-      return new ApiSuccessResponse(ApiSuccessResponse.FAILURE);
+      return new ApiResponse(ApiResponse.FAILURE);
     }
 
-    return new ApiSuccessResponse();
+    return new ApiResponse();
   }
 
   @PatchMapping("")
-  public ApiSuccessResponse updateUser(@Valid @RequestBody UserUpdateRequest userUpdateRequest){
+  public ApiResponse updateUser(@Valid @RequestBody UserUpdateRequest userUpdateRequest){
 
     log.info("update user request  {}", userUpdateRequest);
 
     User user = userService.updateUser(userUpdateRequest);
 
     if(user == null){//TODO:exception
-      return new ApiSuccessResponse(ApiSuccessResponse.FAILURE);
+      return new ApiResponse(ApiResponse.FAILURE);
     }
 
-    return new ApiSuccessResponse();
+    return new ApiResponse();
   }
 
   @DeleteMapping("")
-  public ApiSuccessResponse deleteUser(@Valid @RequestParam(value = "userId") String userId){
+  public ApiResponse deleteUser(@Valid @RequestParam(value = "userId") String userId){
     Boolean deleteResult = userService.deleteUser(userId);
 
     if(!deleteResult){
-      return new ApiSuccessResponse(ApiSuccessResponse.FAILURE);
+      return new ApiResponse(ApiResponse.FAILURE);
     }
 
-    return new ApiSuccessResponse();
+    return new ApiResponse();
   }
 }
