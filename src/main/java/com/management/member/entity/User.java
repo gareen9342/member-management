@@ -1,14 +1,15 @@
 package com.management.member.entity;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity @Data @ToString @DynamicUpdate
+@Entity @DynamicUpdate
+@Getter @Setter
 @Table(name="SYSTEM_USER")
 public class User {
 
